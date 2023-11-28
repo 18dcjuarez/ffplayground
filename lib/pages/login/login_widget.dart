@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/permissions_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -229,7 +230,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                       FFButtonWidget(
                         onPressed: () async {
-                          context.pushNamed('webviewpage');
+                          await requestPermission(cameraPermission);
+                          if (await getPermissionStatus(cameraPermission)) {
+                            context.pushNamed('webviewpage');
+
+                            return;
+                          } else {
+                            return;
+                          }
                         },
                         text: 'Login',
                         options: FFButtonOptions(
